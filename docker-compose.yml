@@ -1,0 +1,47 @@
+version: "3"
+services:
+  worker:
+    # replace username/repo:tag with your name and image details
+    image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:2
+    command: celery -A tasks worker --loglevel=error
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+     - webnet
+  monitor:
+   image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:2
+   command: celery -A tasks flower
+   ports:
+    - "5555:5555"
+   deploy:
+    placement:
+      constraints: [node.role == manager]
+   networks:
+    - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "/home/docker/data:/data"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    command: redis-server --appendonly yes
+    networks:
+      - webnet
+networks:
+  webnet:
