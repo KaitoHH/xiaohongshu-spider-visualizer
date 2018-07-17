@@ -8,8 +8,8 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
-    networks:
-     - webnet
+    depends_on: 
+      - redis
   monitor:
    image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:2
    command: celery -A tasks flower
@@ -18,8 +18,8 @@ services:
    deploy:
     placement:
       constraints: [node.role == manager]
-   networks:
-    - webnet
+   depends_on: 
+    - redis
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -29,8 +29,6 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-    networks:
-      - webnet
   redis:
     image: redis
     ports:
@@ -41,7 +39,3 @@ services:
       placement:
         constraints: [node.role == manager]
     command: redis-server --appendonly yes
-    networks:
-      - webnet
-networks:
-  webnet:
