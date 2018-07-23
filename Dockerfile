@@ -13,5 +13,6 @@ RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 # Make port 80 available to the world outside this container
 EXPOSE 5555
 
+ENV REDIS_URL redis://redis:6379/0
 # Run app.py when the container launches
 #CMD ["celery", "-A", "tasks", "worker", "--loglevel=error"]

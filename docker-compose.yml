@@ -1,9 +1,9 @@
 version: "3"
 services:
   worker:
-    # replace username/repo:tag with your name and image details
-    image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:2
-    command: celery -A tasks worker --loglevel=error
+    build: .
+    image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:3
+    command: celery -A xiaohongshu worker --loglevel=error
     deploy:
       replicas: 3
       restart_policy:
@@ -11,8 +11,9 @@ services:
     depends_on: 
       - redis
   monitor:
-   image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:2
-   command: celery -A tasks flower
+   build: .
+   image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:3
+   command: celery -A xiaohongshu flower
    ports:
     - "5555:5555"
    deploy:

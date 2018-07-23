@@ -1,7 +1,10 @@
+import os
+
 from celery import Celery
 
 # app = Celery('tasks', broker='redis://', backend='redis://')
-app = Celery('tasks', broker='redis://redis:6379/0', backend='redis://redis:6379/0')
+redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
+app = Celery('tasks', broker=redis_url, backend=redis_url)
 
 # Optional configuration, see the application user guide.
 app.conf.update(
