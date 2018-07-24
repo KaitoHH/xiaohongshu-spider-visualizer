@@ -2,8 +2,8 @@ version: "3"
 services:
   worker:
     build: .
-    image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:3
-    command: celery -A xiaohongshu worker --loglevel=error
+    image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:5
+    command: celery -A xiaohongshu_sel worker --loglevel=error
     deploy:
       replicas: 3
       restart_policy:
@@ -12,8 +12,8 @@ services:
       - redis
   monitor:
    build: .
-   image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:3
-   command: celery -A xiaohongshu flower
+   image: registry.cn-hangzhou.aliyuncs.com/kaitohh/celery:5
+   command: celery -A app flower
    ports:
     - "5555:5555"
    deploy:

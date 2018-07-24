@@ -1,13 +1,14 @@
 # Use an official Python runtime as a parent image
-FROM python:3.6-alpine
+FROM python:3.6-slim
 
-# update apk repo
-RUN echo "http://dl-4.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
-    echo "http://dl-4.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories
+# update mirror
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
 
 # install chromedriver
-RUN apk update
-RUN apk add chromium chromium-chromedriver
+RUN apt-get update -y && apt-get install -y chromedriver unzip wget curl
+RUN wget -O /tmp/chromedriver.zip http://npm.taobao.org/mirrors/chromedriver/`curl -L http://npm.taobao.org/mirrors/chromedriver/LATEST_RELEASE`/chromedriver_linux64.zip
+RUN unzip /tmp/chromedriver.zip chromedriver -d -o /usr/bin/
 
 # Set the working directory to /app
 WORKDIR /app
