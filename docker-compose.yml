@@ -40,14 +40,14 @@ services:
       placement:
         constraints: [node.role == manager]
     command: redis-server --appendonly yes
-  sqlite_viewer:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile_sqlite
-    image: coleifer/sqlite-web
-    environment:
-      - SQLITE_DATABASE=sqlite.db
-    volumes:
-      - ".:/data"
-    ports:
-     - "8888:8080"
+#   sqlite_viewer:
+# #    build:
+# #      context: .
+# #      dockerfile: Dockerfile_sqlite
+#     image: coleifer/sqlite-web
+#     environment:
+#       - SQLITE_DATABASE=sqlite.db
+#     volumes:
+#       - ".:/data"
+#     ports:
+#      - "8888:8080"
