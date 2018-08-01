@@ -11,8 +11,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from app import app
 
 options = Options()
-# options.add_argument('headless')
-# options.add_argument('no-sandbox')
+options.add_argument('headless')
+options.add_argument('no-sandbox')
 prefs = {"profile.managed_default_content_settings.images": 2}
 options.add_experimental_option("prefs", prefs)
 browser = webdriver.Chrome(options=options)

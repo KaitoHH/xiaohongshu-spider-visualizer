@@ -1,3 +1,4 @@
+import os
 import requests
 
 from xiaohongshu_sel import get_detailed
@@ -21,7 +22,10 @@ while True:
         break
     for item in response['data']:
         id_list.append(item['id'])
-        get_detailed(item['id'], item['desc'], item['likes'], item['user']['id'])
+        if os.getenv('USE_CELERY'):
+            get_detailed.delay(item['id'], item['desc'], item['likes'], item['user']['id'])
+        else:
+            get_detailed(item['id'], item['desc'], item['likes'], item['user']['id'])
 
 session.close()
 print(id_list)
