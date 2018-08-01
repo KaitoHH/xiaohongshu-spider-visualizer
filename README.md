@@ -22,19 +22,21 @@ run following command
 ```
 docker-compose up
 ```
-and all services will be first built locally and then run automatically. Note that this command will only create one replica for each service.
+and all services will be first built locally and then run automatically. **Note that this command will only create one replica for each service.**
 
 After all services up, visit `localhost:5555` to enter the celery flower dashboard, and `localhost:8080` to enter the docker visualizer page.
 
 ![celery flower dashboard](https://github.com/KaitoHH/xiaohongshu-spider-visualizer/blob/master/screenshots/celery_dashbord.png)
 
-#### Step 2b run in Deployment
+#### Step 2b run in production environment
 run following command
 ```
 docker stack deploy -c docker-compose.yml <your_stack_name>
 ```
 
-you can also modify the `replicas` in `docker-compose.yml`, Line 8 to be equal to your cluster amount.
+You can also modify the `replicas` in Line 8, `docker-compose.yml` to be equal to your amount of cluster.
+
+Below is the screenshot of the docker visualizer page for a successful deploy.
 
 ![docker](https://github.com/KaitoHH/xiaohongshu-spider-visualizer/blob/master/screenshots/docker.png)
 
@@ -48,7 +50,7 @@ now visit the celery dashboard and you will see your tasks.
 ![celery runtime](https://github.com/KaitoHH/xiaohongshu-spider-visualizer/blob/master/screenshots/celery_runtime.png)
 
 ### Build manually to start worker
-You have to first follow instructions for `building a stand-alone crawler`, then start a redis server and change the environment variable `REDIS_URL` to your redis host. Finally, run celery worker command to start workers.
+If you wish to build manually, you have to first follow these instructions for `building a stand-alone crawler`, then start a redis server and change the environment variable `REDIS_URL` to your redis host. Finally, run celery worker command to start workers.
 
 See the `Dockerfile` and `docker-compose.yml` as a reference.
 
