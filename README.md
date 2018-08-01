@@ -1,5 +1,6 @@
 # distributed Xiaohongshu Spider and Data Visiualization
 A distributed web crawler for [xiaohongshu](https://www.xiaohongshu.com/) and visualization for the crawled content.
+![word cloud](https://github.com/KaitoHH/docker-playground/blob/master/wordcloud.png)
 
 ## Crawler
 As this crawler supports distribution, using a pre-build docker is the recommended and convenient way to build this project.
@@ -46,3 +47,11 @@ See the `Dockerfile` and `docker-compose.yml` as a reference.
 
 ## Visualization
 see [xiaohongshu_wordcloud.py](https://github.com/KaitoHH/docker-playground/blob/master/xiaohongshu_wordcloud.py) for more detailed implementaion.
+
+## Acknowledgments
+- [docker](https://www.docker.com/)
+- [celery](http://www.celeryproject.org/)
+- [redis](https://redis.io/)
+- [selenium](https://www.seleniumhq.org/)
+- [jieba](https://github.com/fxsjy/jieba)
+- [wordcloud](http://amueller.github.io/word_cloud/)
